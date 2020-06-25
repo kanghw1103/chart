@@ -28,8 +28,8 @@ def ticket_class_view_1(request):  # 방법 1
     return render(request, 'ticket_class_1.html', {'dataset': dataset})
 
 
-def covid19_view(request):  # 방법 2
-    # Section 2 - Loading and Selecting Data
+def covid19_view(request):
+
     df = pd.read_csv('https://raw.githubusercontent.com/datasets/covid-19/master/data/countries-aggregated.csv',
                      parse_dates=['Date'])
 
@@ -46,8 +46,6 @@ def covid19_view(request):  # 방법 2
     # covid 인덱스와 columns를 새로 지정
     covid.set_index(['Date'], inplace=True)
     covid.columns = countries
-    # print(covid.head())
-
 
     populations = {'Korea, South': 51269185, 'Germany': 83783942, 'United Kingdom': 67886011, 'US': 331002651,
                    'France': 65273511}
@@ -65,11 +63,6 @@ def covid19_view(request):  # 방법 2
         my_dict['country'] = country
         my_dict['series'] = my_series
         my_data.append(my_dict)
-
-    print(list(map(
-        lambda entry: {'name': entry['country'], 'data': entry['series']},
-        my_data)))
-
 
     chart = {
         'chart': {
